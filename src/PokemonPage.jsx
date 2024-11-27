@@ -56,7 +56,6 @@ const PokemonPage = ({ previous, next }) => {
           </div>
         </div>
       </div>
-      <p>{/*testimielessä*/}</p>
     </>
   )
 }
