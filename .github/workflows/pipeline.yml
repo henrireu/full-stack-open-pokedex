@@ -26,9 +26,8 @@ jobs:
       - name: Test
         run: npm test
 
- 
   tag_release:
-    needs: [simple_deployment_pipeline]  
+    needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     if: ${{ github.event_name == 'push' }}
     steps:
@@ -36,11 +35,22 @@ jobs:
         with:
           ref: ${{ github.sha }} 
           fetch-depth: '0'
-        
+
+      - name: Check commit message for #skip
+        id: check_skip
+        run: |
+          if git log -1 --pretty=%B | grep -q "#skip"; then
+            echo "Skipping deployment due to #skip in commit message."
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+        shell: bash
+
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.71.0 
+        if: steps.check_skip.outputs.skip != 'true'
+        uses: anothrNick/github-tag-action@1.71.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           PRERELEASE: true
           DEFAULT_BUMP: patch
