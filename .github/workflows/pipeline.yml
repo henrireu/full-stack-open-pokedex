@@ -44,6 +44,7 @@ jobs:
             echo "::set-output name=skip::true"
           else
             echo "::set-output name=skip::false"
+          fi
         shell: bash
 
       - name: Bump version and push tag
