@@ -46,7 +46,7 @@ jobs:
             echo "::set-output name=skip::false"
           fi
         shell: bash
-        
+
       - name: Bump version and push tag
         if: steps.check_skip.outputs.skip != 'true'
         uses: anothrNick/github-tag-action@1.71.0
@@ -56,10 +56,8 @@ jobs:
           PRERELEASE: true
           DEFAULT_BUMP: patch
 
-      - name: A new version of Pokedex deployed
-        if: success()  
-        uses: rjstone/discord-webhook-notify@v1
+      - name: New pokemon version has released
+        uses: cl8dep/action-discord@v0
         with:
-          severity: info
-          details: "New release tag created successfully!"
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: 'New release tag created successfully: ${{ github.ref_name }}'
