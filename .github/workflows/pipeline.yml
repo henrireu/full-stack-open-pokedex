@@ -57,7 +57,7 @@ jobs:
           DEFAULT_BUMP: patch
 
       - name: New pokemon version has released
-        uses: cl8dep/action-discord@v0
+        uses: discord-actions/message@v2
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           message: 'New release tag created successfully: ${{ github.ref_name }}'
