@@ -55,3 +55,11 @@ jobs:
           WITH_V: true
           PRERELEASE: true
           DEFAULT_BUMP: patch
+
+      - name: A new version of Pokedex deployed
+        if: success()  
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          details: "New release tag created successfully!"
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
