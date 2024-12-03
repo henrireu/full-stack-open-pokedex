@@ -1,10 +1,10 @@
 name: Periodic Health Check
 
 on: 
-  push:
-    branches: 
-      - main
-
+ push:
+  branches:
+    - main
+    
 jobs:
   periodic_health_check:
     runs-on: ubuntu-latest
