@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 const express = require('express')
-const appp = express()
+const app = express()
 
 // get the port from env variable
 // eslint-disable-next-line no-undef
